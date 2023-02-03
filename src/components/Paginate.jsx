@@ -18,10 +18,14 @@ import members from "../assets/members.json";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { visuallyHidden } from "@mui/utils";
+import { createEvent } from "ics";
+import { saveAs } from "file-saver";
+import { Download } from "@mui/icons-material";
 
-function createData(key, name, type, period, memNote, status, admitNote) {
+function createData(key, img, name, type, period, memNote, status, admitNote) {
   return {
     key,
+    img,
     name,
     type,
     period,
@@ -34,6 +38,9 @@ function createData(key, name, type, period, memNote, status, admitNote) {
 const rows = absences.payload.map((absence, i) => {
   return createData(
     i,
+    members.payload.map((member) => {
+      return member.userId === absence.userId ? member.image : "";
+    }),
     members.payload.map((member) => {
       return member.userId === absence.userId ? member.name : "";
     }),
@@ -286,7 +293,46 @@ export default function EnhancedTable() {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  let comma = " ,,,,,";
+                  const event = {
+                    start: [2018, 5, 30, 6, 30],
+                    duration: { hours: 6, minutes: 30 },
+                    title: `Absences (${rows.length})`,
+                    location:
+                      "Folsom Field, University of Colorado (finish line)",
+                    url: "http://www.bolderboulder.com/",
+                    geo: { lat: 40.0095, lon: 105.2669 },
+                    categories: [
+                      "10k races",
+                      "Memorial Day Weekend",
+                      "Boulder CO",
+                    ],
+                    status: "CONFIRMED",
+                    busyStatus: "BUSY",
+                    organizer: {
+                      name: "Admin",
+                      email: "Race@BolderBOULDER.com",
+                    },
+                    description: `
+                    Member Name : ${String(row.name).replace(comma, "")} \r
+                    Type of absence : ${row.type} \r
+                    Period : ${row.period}  \n
+                    MemberNote : ${row.memNote} \n
+                    Status : ${row.status} \n
+                    Admitter note : ${row.admitNote}\r
 
+                    `,
+
+                    attendees: [],
+                  };
+                  const handleSave = () => {
+                    createEvent(event, (error, value) => {
+                      const blob = new Blob([value], {
+                        type: "text/plain;charset=utf-8",
+                      });
+                      saveAs(blob, "event-schedule.ics");
+                    });
+                  };
                   return (
                     <TableRow
                       hover
@@ -296,7 +342,14 @@ export default function EnhancedTable() {
                       key={row.key}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox"></TableCell>
+                      <TableCell padding="checkbox">
+                        <img
+                          className="avatar"
+                          src="https://loremflickr.com/300/400"
+                          alt="avatar"
+                        />
+                      </TableCell>
+
                       <TableCell
                         component="th"
                         id={labelId}
@@ -314,6 +367,19 @@ export default function EnhancedTable() {
                       <TableCell style={{ width: "20%" }} align="right">
                         {row.admitNote}
                       </TableCell>
+                      <button
+                        onClick={handleSave}
+                        style={{
+                          marginTop: "7px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <Download
+                          style={{
+                            fontSize: "15px",
+                          }}
+                        />
+                      </button>
                     </TableRow>
                   );
                 })}
@@ -326,6 +392,23 @@ export default function EnhancedTable() {
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
+              <div
+                style={{
+                  display: isLoading ? "grid" : "none",
+                }}
+                className="loader-container"
+              >
+                <div className="lds-roller">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
             </TableBody>
           </Table>
         </TableContainer>
@@ -344,23 +427,6 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
-      <div
-        style={{
-          display: isLoading ? "grid" : "none",
-        }}
-        className="loader-container"
-      >
-        <div class="lds-roller">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
     </Box>
   );
 }
