@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
-import "./App.css";
 import EnhancedTable from "./components/Paginate";
+import styled from "styled-components";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
+    <MaiSection>
       <EnhancedTable />
-    </div>
+    </MaiSection>
   );
 }
 
-export default App;
+const MaiSection = styled("div")`
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0px 100px;
+`;
