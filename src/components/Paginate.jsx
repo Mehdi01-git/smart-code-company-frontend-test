@@ -149,7 +149,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox"></TableCell>
+        <TableCell padding="normal"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -164,9 +164,10 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler(headCell.id)}
               style={{
                 fontFamily: "Montserrat, sans-serif",
+                fontWeight: "600",
               }}
             >
-              <b>{headCell.label}</b>
+              {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
@@ -219,7 +220,7 @@ function EnhancedTableToolbar(props) {
         <Typography
           sx={{
             flex: "1 1 100%",
-            marginLeft: "35px",
+            marginLeft: "15px",
             fontFamily: "Montserrat, sans-serif",
           }}
           variant="h6"
@@ -362,7 +363,7 @@ export default function EnhancedTable() {
                       key={row.key}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell padding="none">
                         {/* <img
                           className="avatar"
                           src="https://picsum.photos/200/300"
@@ -378,6 +379,7 @@ export default function EnhancedTable() {
                         style={{
                           fontFamily: "Poppins, sans-serif",
                           fontSize: "16px",
+                          color: "rgba(100, 100, 111, )",
                         }}
                       >
                         {row.name}
@@ -387,6 +389,7 @@ export default function EnhancedTable() {
                           fontFamily: "Poppins, sans-serif",
                           fontSize: "16px",
                           textTransform: "capitalize",
+                          color: "rgba(100, 100, 111, ) ",
                         }}
                         align="right"
                       >
@@ -397,6 +400,7 @@ export default function EnhancedTable() {
                           width: "20%",
                           fontFamily: "Poppins, sans-serif",
                           textTransform: "capitalize",
+                          color: "rgba(100, 100, 111, )",
                         }}
                         align="right"
                       >
@@ -405,6 +409,7 @@ export default function EnhancedTable() {
                       <TableCell
                         style={{
                           fontFamily: "Poppins, sans-serif",
+                          color: "rgba(100, 100, 111, )",
                         }}
                         align="right"
                       >
@@ -414,6 +419,7 @@ export default function EnhancedTable() {
                         style={{
                           fontFamily: "Poppins, sans-serif",
                           fontSize: "16px",
+                          color: "rgba(100, 100, 111, )",
                         }}
                         align="right"
                       >
@@ -423,6 +429,7 @@ export default function EnhancedTable() {
                         style={{
                           width: "20%",
                           fontFamily: "Poppins, sans-serif",
+                          color: "rgba(100, 100, 111, )",
                         }}
                         align="right"
                       >

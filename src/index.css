@@ -7,17 +7,25 @@ body {
 .css-1mxz8qt-MuiPaper-root {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
   border-radius: 20px !important;
-  padding: 20px 0px 10px 0px;
+  padding: 10px 0px 0px 0px;
 }
 .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar
   .MuiTablePagination-actions {
   padding-right: 20px;
+}
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
+  padding-top: 10px;
 }
 .downButton {
   font-size: 14px;
   color: grey;
 }
 @media only screen and (max-width: 500px) {
+  .kKofoK {
+    height: initial !important;
+    padding: 0 !important;
+    display: flex !important;
+  }
 }
 
 /* <!-- Loading Spinner Styling --> */
