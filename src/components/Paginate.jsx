@@ -129,8 +129,14 @@ const headCells = [
   {
     id: "download",
     numeric: true,
-    disablePadding: false,
+    disablePadding: true,
     label: "Download",
+  },
+  {
+    id: "download",
+    numeric: true,
+    disablePadding: true,
+    label: "",
   },
 ];
 
@@ -439,6 +445,7 @@ export default function EnhancedTable() {
                           </button>
                         </Tooltip>
                       </TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   );
                 })}
