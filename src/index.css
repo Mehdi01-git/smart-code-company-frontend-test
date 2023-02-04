@@ -4,6 +4,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.css-1mxz8qt-MuiPaper-root {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+  border-radius: 20px !important;
+  padding: 10px 0px;
+}
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar
+  .MuiTablePagination-actions {
+  padding-right: 20px;
+}
+.downButton {
+  font-size: 14px;
+  color: grey;
+}
+@media only screen and (max-width: 500px) {
+}
+
 /* <!-- Loading Spinner Styling --> */
 
 @keyframes spin {
@@ -105,10 +121,17 @@ body {
   left: 12px;
 }
 .avatar {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
   margin-top: 5px;
+  margin-left: 5px;
+}
+.css-1mxz8qt-MuiPaper-root {
+  margin-bottom: 50px !important;
+}
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar p {
+  font-family: "Montserrat", sans-serif !important;
 }
 @keyframes lds-roller {
   0% {

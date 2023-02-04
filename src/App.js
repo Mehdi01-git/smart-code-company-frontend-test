@@ -13,5 +13,5 @@ const MaiSection = styled("div")`
   height: 100vh;
   display: grid;
   place-items: center;
-  padding: 0px 100px;
+  padding: 50px;
 `;

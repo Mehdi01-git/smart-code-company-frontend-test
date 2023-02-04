@@ -21,6 +21,7 @@ import { visuallyHidden } from "@mui/utils";
 import { createEvent } from "ics";
 import { saveAs } from "file-saver";
 import { Download } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 
 function createData(key, img, name, type, period, memNote, status, admitNote) {
   return {
@@ -125,6 +126,12 @@ const headCells = [
     disablePadding: false,
     label: "Admitter note ",
   },
+  {
+    id: "download",
+    numeric: true,
+    disablePadding: false,
+    label: "Download",
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -149,6 +156,9 @@ function EnhancedTableHead(props) {
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+              }}
             >
               <b>{headCell.label}</b>
               {orderBy === headCell.id ? (
@@ -201,7 +211,11 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: "1 1 100%", marginLeft: "35px" }}
+          sx={{
+            flex: "1 1 100%",
+            marginLeft: "35px",
+            fontFamily: "Montserrat, sans-serif",
+          }}
           variant="h6"
           id="tableTitle"
           component="div"
@@ -222,7 +236,7 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState("type");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
+  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [isLoading, setLoading] = React.useState(true);
   function someRequest() {
@@ -343,11 +357,11 @@ export default function EnhancedTable() {
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
-                        <img
+                        {/* <img
                           className="avatar"
-                          src="https://loremflickr.com/300/400"
+                          src="https://picsum.photos/200/300"
                           alt="avatar"
-                        />
+                        /> */}
                       </TableCell>
 
                       <TableCell
@@ -355,31 +369,76 @@ export default function EnhancedTable() {
                         id={labelId}
                         scope="row"
                         padding="none"
+                        style={{
+                          fontFamily: "Poppins, sans-serif",
+                          fontSize: "16px",
+                        }}
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.type}</TableCell>
-                      <TableCell style={{ width: "20%" }} align="right">
+                      <TableCell
+                        style={{
+                          fontFamily: "Poppins, sans-serif",
+                          fontSize: "16px",
+                          textTransform: "capitalize",
+                        }}
+                        align="right"
+                      >
+                        {row.type}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "20%",
+                          fontFamily: "Poppins, sans-serif",
+                          textTransform: "capitalize",
+                        }}
+                        align="right"
+                      >
                         {row.period}
                       </TableCell>
-                      <TableCell align="right">{row.memNote}</TableCell>
-                      <TableCell align="right">{row.status}</TableCell>
-                      <TableCell style={{ width: "20%" }} align="right">
+                      <TableCell
+                        style={{
+                          fontFamily: "Poppins, sans-serif",
+                        }}
+                        align="right"
+                      >
+                        {row.memNote}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          fontFamily: "Poppins, sans-serif",
+                          fontSize: "16px",
+                        }}
+                        align="right"
+                      >
+                        {row.status}
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "20%",
+                          fontFamily: "Poppins, sans-serif",
+                        }}
+                        align="right"
+                      >
                         {row.admitNote}
                       </TableCell>
-                      <button
-                        onClick={handleSave}
-                        style={{
-                          marginTop: "7px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Download
-                          style={{
-                            fontSize: "15px",
-                          }}
-                        />
-                      </button>
+                      <TableCell align="center">
+                        <Tooltip title="Download iCal file">
+                          <button
+                            onClick={handleSave}
+                            style={{
+                              marginTop: "7px",
+                              marginLeft: "20px",
+                              cursor: "pointer",
+                              backgroundColor: "transparent",
+                              border: "none",
+                              borderRadius: "20px",
+                            }}
+                          >
+                            <Download className="downButton" />
+                          </button>
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -423,10 +482,6 @@ export default function EnhancedTable() {
           data-testid="paginate"
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
